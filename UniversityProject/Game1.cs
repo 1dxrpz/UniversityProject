@@ -44,8 +44,6 @@ namespace UniversityProject
 		{
 			GraphicsDevice.Clear(Color.Tomato);
 
-			// TODO: Add your drawing code here
-
 			base.Draw(gameTime);
 		}
 	}
