@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
+using System.Threading.Tasks;
+using UniversityProject.server;
 
 namespace UniversityProject
 {
@@ -78,6 +80,23 @@ namespace UniversityProject
             Rancher.Update();
             base.Update(gameTime);
         }
+		async void Connect()
+		{
+			await Task.Run(() => Client.Connect());
+		}
+		bool start = true;
+		protected override void Update(GameTime gameTime)
+		{
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+				Exit();
+			if (start)
+			{
+				Connect();
+				start = false;
+			}
+
+			base.Update(gameTime);
+		}
 
         protected override void Draw(GameTime gameTime)
         {
