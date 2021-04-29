@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
 
-namespace TheRancher
+namespace UniversityProject
 {
     public class Game1 : Game
     {

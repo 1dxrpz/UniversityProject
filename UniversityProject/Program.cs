@@ -2,7 +2,7 @@
 
 namespace UniversityProject
 {
-	public static class Program
+	public static class Program 
 	{
 		[STAThread]
 		static void Main()
