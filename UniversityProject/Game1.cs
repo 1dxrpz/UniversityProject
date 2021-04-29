@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading.Tasks;
+using UniversityProject.server;
 
 namespace UniversityProject
 {
@@ -30,12 +32,20 @@ namespace UniversityProject
 			// TODO: use this.Content to load your game content here
 		}
 
+		async void Connect()
+		{
+			await Task.Run(() => Client.Connect());
+		}
+		bool start = true;
 		protected override void Update(GameTime gameTime)
 		{
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-
-			// TODO: Add your update logic here
+			if (start)
+			{
+				Connect();
+				start = false;
+			}
 
 			base.Update(gameTime);
 		}
@@ -43,8 +53,6 @@ namespace UniversityProject
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Tomato);
-
-			// TODO: Add your drawing code here
 
 			base.Draw(gameTime);
 		}
