@@ -12,7 +12,7 @@ namespace UniversityProject
         public Texture2D texture;
         public Vector2 position;
         public float speed;
-        public float velosity;
+        public float velosity = 8;
         public Texture2D ColTexture;
         public Rectangle Colision;
 
@@ -24,6 +24,17 @@ namespace UniversityProject
         }
 
         public void Update()
+        {
+            ColTexture = Utilits.Content.Load<Texture2D>("chest");
+            Colision = new Rectangle(50, 50, 64, 64);
+
+
+
+
+            Move();
+        }
+
+        private void Move()
         {
             KeyboardState k = Keyboard.GetState();
 
