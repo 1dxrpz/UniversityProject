@@ -28,7 +28,7 @@ namespace UniversityProject
             ColTexture = Utilits.Content.Load<Texture2D>("chest");
             Colision = new Rectangle(50, 50, 64, 64);
 
-
+            if (position.Y == Colision.Y)
 
 
             Move();
