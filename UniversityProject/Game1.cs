@@ -32,9 +32,9 @@ namespace UniversityProject
 			// TODO: use this.Content to load your game content here
 		}
 
-		async void Connect()
+		async void Connect(string name, string ip, int port)
 		{
-			await Task.Run(() => Client.Connect());
+			await Task.Run(() => Client.Connect(name, ip, port));
 		}
 		bool start = true;
 		protected override void Update(GameTime gameTime)
@@ -43,7 +43,7 @@ namespace UniversityProject
 				Exit();
 			if (start)
 			{
-				Connect();
+				Connect("test1", "192.168.1.252", 8888);
 				start = false;
 			}
 

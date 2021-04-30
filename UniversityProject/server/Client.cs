@@ -8,18 +8,16 @@ namespace UniversityProject.server
     class Client
     {
         static string userName;
-        private const string host = "192.168.1.252";
-        private const int port = 8888;
         static TcpClient client;
         static NetworkStream stream;
 
-        public static void Connect()
+        public static void Connect(string name, string ip, int port)
         {
-            userName = "test";
+            userName = name;
             client = new TcpClient();
             try
             {
-                client.Connect(host, port); //подключение клиента
+                client.Connect(ip, port); //подключение клиента
                 stream = client.GetStream(); // получаем поток
 
                 string message = userName;
