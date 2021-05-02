@@ -15,7 +15,7 @@ namespace UniversityProject.server
 
         public static void Connect()
         {
-            userName = "test";
+            userName = "tyanochka";
             client = new TcpClient();
             try
             {

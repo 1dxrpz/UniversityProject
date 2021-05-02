@@ -70,7 +70,7 @@ namespace UniversityProject
             Utilits.SpriteBatch = spriteBatch;
 
         }
-
+        bool start = true;
         protected override void Update(GameTime gameTime)
         {
             Utilits.GameTime = gameTime;
@@ -78,25 +78,18 @@ namespace UniversityProject
                 Exit();
             Camera.position = Vector2.Lerp(Camera.position, Rancher.position - new Vector2(1920, 1080) / 2, .2f);
             Rancher.Update();
+            if (start)
+			{
+				Connect();
+				start = false;
+			}
             base.Update(gameTime);
         }
 		async void Connect()
 		{
 			await Task.Run(() => Client.Connect());
 		}
-		bool start = true;
-		protected override void Update(GameTime gameTime)
-		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
-			if (start)
-			{
-				Connect();
-				start = false;
-			}
-
-			base.Update(gameTime);
-		}
+		
 
         protected override void Draw(GameTime gameTime)
         {
