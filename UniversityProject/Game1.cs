@@ -85,9 +85,9 @@ namespace UniversityProject
 			}
             base.Update(gameTime);
         }
-		async void Connect()
+		async void Connect(string name, string ip, int port)
 		{
-			await Task.Run(() => Client.Connect());
+			await Task.Run(() => Client.Connect(name, ip, port));
 		}
 		
 
