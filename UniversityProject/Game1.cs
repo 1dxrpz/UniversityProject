@@ -122,7 +122,7 @@ namespace UniversityProject
         }
 		async void Connect(string name, string ip, int port)
 		{
-			await Task.Run(() => Client.Connect(name, ip, port));
+			//await Task.Run(() => Client.Connect(name, ip, port));
 		}
 
         protected override void Draw(GameTime gameTime)

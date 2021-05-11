@@ -77,7 +77,7 @@ namespace UniversityProject.GUI
 				return false;
 			}
 		}
-		void Initialize()
+		public void Initialize()
 		{
 
 		}
