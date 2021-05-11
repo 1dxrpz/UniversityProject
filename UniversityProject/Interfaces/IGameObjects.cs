@@ -6,7 +6,8 @@ namespace UniversityProject.Interfaces
 {
 	interface IGameObjects
 	{
-		void Update();
+		public void Initialize();
+		public void Update();
 		public void Draw();
 	}
 }
