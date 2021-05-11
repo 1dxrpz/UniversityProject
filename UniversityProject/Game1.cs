@@ -91,7 +91,8 @@ namespace UniversityProject
         {
             
         }
-		bool start = true;
+
+        bool start = true;
         protected override void Update(GameTime gameTime)
         {
             Utilits.GameTime = gameTime;

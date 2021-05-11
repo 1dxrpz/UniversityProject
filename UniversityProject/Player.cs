@@ -12,24 +12,18 @@ namespace UniversityProject
         public Texture2D texture;
         public Vector2 position;
         public float speed;
-        public float velosity = 8;
-        public Texture2D ColTexture;
-        public Rectangle Colision;
 
         public Player()
         {
             texture = Utilits.Content.Load<Texture2D>("Tyan");
             position = new Vector2(100, 100);
-            speed += velosity;
+            speed = 8 ;
         }
 
         public void Update()
         {
             ColTexture = Utilits.Content.Load<Texture2D>("chest");
             Colision = new Rectangle(50, 50, 64, 64);
-
-            
-
             Move();
         }
 
@@ -43,6 +37,7 @@ namespace UniversityProject
             }
             else if (k.IsKeyDown(Keys.S))
             {
+
                 position.Y += speed;
             }
 
