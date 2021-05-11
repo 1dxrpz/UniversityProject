@@ -27,9 +27,9 @@ namespace UniversityProject.server
                 stream.Write(data, 0, data.Length);
 
                 // запускаем новый поток для получения данных
-                //Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
-                //receiveThread.Start(); //старт потокаd
-                //SendMessage();
+                Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
+                receiveThread.Start(); //старт потокаd
+                SendMessage();
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace UniversityProject.server
         // отправка сообщений
         static void SendMessage()
         {
-            string message = "";
+            string message = "playerJoin";
             byte[] data = Encoding.Unicode.GetBytes(message);
             stream.Write(data, 0, data.Length);
         }
@@ -52,8 +52,6 @@ namespace UniversityProject.server
             byte[] data = Encoding.Unicode.GetBytes(message);
             stream.Write(data, 0, data.Length);
         }
-        // получение сообщений
-        /*
         static void ReceiveMessage()
         {
             while (true)
@@ -81,7 +79,6 @@ namespace UniversityProject.server
                 }
             }
         }
-        */
 
         static void Disconnect()
         {
