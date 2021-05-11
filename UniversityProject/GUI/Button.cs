@@ -10,40 +10,48 @@ namespace UniversityProject.GUI
 {
 	class Button : IGameObjects
 	{
-		Rectangle Bounds;
+		public Rectangle Bounds;
 		Texture2D Texture;
+		public string Text;
+		public Color TextColor = Color.Black;
 		// 5 перегрузок, специально для тебя, ляпа ♥
-		public Button()
+		public Button(string text = "")
 		{
 			Bounds = new Rectangle(0, 0, 10, 10);
 			Texture = Utilits.GetTexture(Color.AliceBlue);
 			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Rectangle bounds)
+		public Button(Rectangle bounds, string text = "")
 		{
 			Bounds = bounds;
 			Texture = Utilits.GetTexture(Color.AliceBlue);
 			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Texture2D texture)
+		public Button(Texture2D texture, string text = "")
 		{
 			Bounds = new Rectangle(0, 0, 10, 10);
 			Texture = texture;
 			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Texture2D texture, Rectangle bounds)
+		public Button(Texture2D texture, Rectangle bounds, string text = "")
 		{
 			Bounds = bounds;
 			Texture = texture;
 			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Rectangle bounds, Texture2D texture)
+		public Button(Rectangle bounds, Texture2D texture, string text = "")
 		{
 			Bounds = bounds;
 			Texture = texture;
 			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
 		private bool temp = true;
+		private bool tempr = true;
 		public bool IsHover
 		{
 			get
@@ -77,9 +85,20 @@ namespace UniversityProject.GUI
 				return false;
 			}
 		}
+		public bool OnRelease
+		{
+			get
+			{
+				return Mouse.GetState().LeftButton == ButtonState.Released && IsHover;
+			}
+		}
+
+		SpriteFont font;
+		Vector2 fsize;
 		public void Initialize()
 		{
-
+			font = Utilits.Content.Load<SpriteFont>("DefaultFont");
+			fsize = font.MeasureString(Text);
 		}
 		public void Update()
 		{
@@ -87,7 +106,13 @@ namespace UniversityProject.GUI
 		}
 		public void Draw()
 		{
+			
 			Utilits.SpriteBatch.Draw(Texture, Bounds, Color.White);
+			Utilits.SpriteBatch.DrawString(font, Text, new Vector2(
+				Bounds.X + Bounds.Width / 2,
+				Bounds.Y + Bounds.Height / 2),
+				TextColor, 0, new Vector2(fsize.X, fsize.Y) / 2, 1.5f, SpriteEffects.None, 1);
+			Utilits.SpriteBatch.DrawString(font, "", Vector2.Zero, Color.White);
 		}
 	}
 }
