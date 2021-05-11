@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using UniversityProject.Object;
 using UniversityProject.server;
 
 namespace UniversityProject
@@ -12,6 +14,8 @@ namespace UniversityProject
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        private List<GameObject> objects;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -20,30 +24,15 @@ namespace UniversityProject
             IsMouseVisible = true;
         }
 
-        Player Rancher;
         TileMap Atlas;
         protected override void Initialize()
         {
-            Rancher = new Player();
             Atlas = new TileMap();
             Atlas.Texture = Content.Load<Texture2D>("Gate");
             FullScreen();
             base.Initialize();
 
-            //string[] map = File.ReadAllLines(@"C:\Users\IlyaNB\Desktop\Map.txt");
-
-            //Atlas.AddTile('.', new Vector2(1, 18));
-            //Atlas.AddTile('!', new Vector2(1, 22));
-            //Atlas.AddTile('#', new Vector2(2, 16));
-
-
-            //for (int a = 0; a < map.Length; a++)
-            //{
-            //    for (int b = 0; b < map[a].Length; b++)
-            //    {
-            //        Atlas.SetTiles((map[a][b]), new Vector2(b, a));
-            //    }
-            //}
+            
 
             for (int x = 0; x < 32; x++)
             {
@@ -69,6 +58,27 @@ namespace UniversityProject
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Utilits.SpriteBatch = spriteBatch;
 
+            objects = new List<GameObject>()
+            {
+                new Player(Content.Load<Texture2D>("Tyan"))
+                {
+                    Input = new Input()
+                    {
+                        Up = Keys.W,
+                        Down = Keys.S,
+                        Right = Keys.D,
+                        Left = Keys.A,
+                    },
+                    Position = new Vector2(100,100),
+                    Colour = Color.White,
+                    Speed = 8,
+                },
+                new MapObject(Content.Load<Texture2D>("chest"))
+                {
+                    Position = new Vector2(50,50)
+                }
+            };
+
         }
         bool start = true;
         protected override void Update(GameTime gameTime)
@@ -76,18 +86,19 @@ namespace UniversityProject
             Utilits.GameTime = gameTime;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            Camera.position = Vector2.Lerp(Camera.position, Rancher.position - new Vector2(1920, 1080) / 2, .2f);
-            Rancher.Update();
+            Camera.position = Vector2.Lerp(Camera.position, objects[0].Position - new Vector2(1920, 1080) / 2, .2f);
+            foreach (var objec in objects)
+                objec.Update(gameTime,objects);
             if (start)
 			{
-				Connect();
+				Connect("tan", "192.168.1.252",8888);
 				start = false;
 			}
             base.Update(gameTime);
         }
 		async void Connect(string name, string ip, int port)
 		{
-			await Task.Run(() => Client.Connect(name, ip, port));
+			//await Task.Run(() => Client.Connect(name, ip, port));
 		}
 		
 
@@ -97,7 +108,8 @@ namespace UniversityProject
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
             Atlas.Draw();
-            Rancher.Draw();
+            foreach (var objec in objects)
+                objec.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
