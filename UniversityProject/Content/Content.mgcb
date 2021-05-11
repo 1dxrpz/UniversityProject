@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:atlas.png
 
+#begin button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:button.png
+
 #begin chest.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +48,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:chest.png
+
+#begin DefaultFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:DefaultFont.spritefont
 
 #begin Gate.png
 /importer:TextureImporter

@@ -27,25 +27,37 @@ namespace UniversityProject
             IsMouseVisible = true;
         }
 
-        Player Rancher;
+        //Player Rancher;
         TileMap Atlas;
 
-        List<Player> players;
+        //List<Player> players;
 
-        Button button;
-        Button button2;
-
+        Menu menu;
         protected override void Initialize()
         {
+            if (!File.Exists(@".\settings"))
+            {
+                File.WriteAllText(@".\settings", "");
+                Utilits.AddSetting("nickname", "dxrpz");
+                Utilits.AddSetting("defaultIp", "192.168.0.1");
+                Utilits.AddSetting("defaultPort", "8888");
+                Utilits.ApplySettings();
+            }
+			foreach (var item in File.ReadAllLines(@".\settings"))
+			{
+                Utilits.Settings.Add(item.Split(":")[0], item.Split(":")[1]);
+			}
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Utilits.GraphicsDevice = this.GraphicsDevice;
-            Utilits.Content = this.Content;
+            Utilits.GraphicsDevice = GraphicsDevice;
+            Utilits.Content = Content;
             Utilits.SpriteBatch = spriteBatch;
+            Utilits.ScreenSize = new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             AllocConsole();
-            button = new Button(new Rectangle(100, 100, 100, 100));
-            button2 = new Button(new Rectangle(300, 100, 100, 100));
-			#region temp
-			/*
+            menu = new Menu();
+            menu.Initialize();
+            Utilits.GameObjects.ForEach((v) => v.Initialize());
+            #region temp
+            /*
             players = new List<Player>();
             Rancher = new Player();
             Atlas = new TileMap();
@@ -77,8 +89,8 @@ namespace UniversityProject
                 }
             }
             */
-			#endregion
-		}
+            #endregion
+        }
 		private void FullScreen()
         {
             graphics.IsFullScreen = true;
@@ -97,42 +109,28 @@ namespace UniversityProject
         {
             Utilits.GameTime = gameTime;
 
-			if (button.IsHover)
-			{
-                Console.WriteLine("lol");
-			}
-            if (button2.IsPressed)
-			{
-                Console.WriteLine("kek");
-			}
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
-			//if (start)
-			//{
-			//	//Connect("test1", "192.168.1.252", 8888);
-			//	start = false;
-			//}
-            //
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
-            //Camera.position = Vector2.Lerp(Camera.position, Rancher.position - new Vector2(1920, 1080) / 2, .2f);
-            //Rancher.Update();
+            //if (start)
+            //{
+            //	//Connect("test1", "192.168.1.252", 8888);
+            //	start = false;
+            //}
+            Utilits.GameObjects.ForEach((v) => v.Update());
             base.Update(gameTime);
         }
 		async void Connect(string name, string ip, int port)
 		{
 			//await Task.Run(() => Client.Connect(name, ip, port));
 		}
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Tomato);
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
+            menu.Draw();
+            menu.Update();
             Utilits.GameObjects.ForEach((v) => v.Draw());
-            //Atlas.Draw();
-            //Rancher.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
