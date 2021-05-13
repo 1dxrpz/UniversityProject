@@ -31,7 +31,7 @@ namespace UniversityProject
         TileMap Atlas;
         //List<Player> players;
 
-        Menu menu;
+        MenuScene menu;
         private void FullScreen()
         {
             graphics.IsFullScreen = true;
@@ -61,7 +61,7 @@ namespace UniversityProject
             Utilits.SpriteBatch = spriteBatch;
             Utilits.ScreenSize = new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             AllocConsole();
-            menu = new Menu();
+            menu = new MenuScene();
             menu.Initialize();
             Utilits.Scenes.ForEach((v) => {
 				if (v.Scene == Utilits.CurrentScene)

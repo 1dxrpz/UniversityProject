@@ -12,7 +12,7 @@ using UniversityProject.Scenes;
 
 namespace UniversityProject
 {
-	class Menu : GameSceneObject, IGameScene
+	class MenuScene : GameSceneObject, IGameScene
 	{
 		public Scene Scene = Scene.Menu;
 		Button connect_button;
