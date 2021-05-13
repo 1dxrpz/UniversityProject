@@ -8,12 +8,21 @@ using UniversityProject.Interfaces;
 
 namespace UniversityProject.GUI
 {
+	enum Anchor
+	{
+		Left, Right, Top, Bottom,
+		TopLeft, TopRight,
+		BottomLeft, BottomRight,
+		Center
+	}
 	class Button : IGameObjects
 	{
 		public Rectangle Bounds;
-		Texture2D Texture;
+		public Texture2D Texture;
 		public string Text;
 		public Color TextColor = Color.Black;
+		public bool IsVisible = true;
+		public Anchor Anchor = Anchor.Center;
 		// 5 перегрузок, специально для тебя, ляпа ♥
 		public Button(string text = "")
 		{
@@ -51,12 +60,11 @@ namespace UniversityProject.GUI
 			Text = text;
 		}
 		private bool temp = true;
-		private bool tempr = true;
 		public bool IsHover
 		{
 			get
 			{
-				return Mouse.GetState().X >= Bounds.X &&
+				return IsVisible && Mouse.GetState().X >= Bounds.X &&
 					Mouse.GetState().Y >= Bounds.Y &&
 					Mouse.GetState().X <= Bounds.X + Bounds.Width &&
 					Mouse.GetState().Y <= Bounds.Y + Bounds.Height;
@@ -98,21 +106,30 @@ namespace UniversityProject.GUI
 		public void Initialize()
 		{
 			font = Utilits.Content.Load<SpriteFont>("DefaultFont");
-			fsize = font.MeasureString(Text);
+			
 		}
 		public void Update()
 		{
 			
 		}
+
+		public Vector2 Origin;
+		public Vector2 Position;
 		public void Draw()
 		{
-			
-			Utilits.SpriteBatch.Draw(Texture, Bounds, Color.White);
-			Utilits.SpriteBatch.DrawString(font, Text, new Vector2(
-				Bounds.X + Bounds.Width / 2,
-				Bounds.Y + Bounds.Height / 2),
-				TextColor, 0, new Vector2(fsize.X, fsize.Y) / 2, 1.5f, SpriteEffects.None, 1);
-			Utilits.SpriteBatch.DrawString(font, "", Vector2.Zero, Color.White);
+			if (IsVisible)
+			{
+				fsize = font.MeasureString(Text);
+				switch (this.Anchor)
+				{
+					case Anchor.Center: Origin = new Vector2(fsize.X, fsize.Y) / 2; Position = new Vector2(Bounds.X + Bounds.Width / 2, Bounds.Y + Bounds.Height / 2); break;
+					case Anchor.Left: Origin = new Vector2(0, fsize.Y) / 2; Position = new Vector2(Bounds.X + 10, Bounds.Y + Bounds.Height / 2); break;
+					case Anchor.Right: Origin = new Vector2(fsize.X, fsize.Y / 2); Position = new Vector2(Bounds.X + Bounds.Width - 10, Bounds.Y + Bounds.Height / 2); break;
+				}
+				Utilits.SpriteBatch.Draw(Texture, Bounds, Color.White);
+				Utilits.SpriteBatch.DrawString(font, Text, Position,
+					TextColor, 0, Origin, 1f, SpriteEffects.None, 1);
+			}
 		}
 	}
 }

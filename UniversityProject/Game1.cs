@@ -33,8 +33,17 @@ namespace UniversityProject
         //List<Player> players;
 
         Menu menu;
+        private void FullScreen()
+        {
+            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            Window.Title = "Game Project";
+            graphics.ApplyChanges();
+        }
         protected override void Initialize()
         {
+            FullScreen();
             if (!File.Exists(@".\settings"))
             {
                 File.WriteAllText(@".\settings", "");
@@ -91,14 +100,7 @@ namespace UniversityProject
             */
             #endregion
         }
-		private void FullScreen()
-        {
-            graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-            Window.Title = "2D Tyan";
-            graphics.ApplyChanges();
-        }
+		
         protected override void LoadContent()
         {
             
@@ -125,7 +127,7 @@ namespace UniversityProject
 		}
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Tomato);
+            GraphicsDevice.Clear(Color.White);
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
             menu.Draw();
