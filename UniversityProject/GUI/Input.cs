@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UniversityProject
 {
-    class Input
+    public class Input
     {
         public Keys Up;
         public Keys Down;

@@ -10,16 +10,16 @@ namespace UniversityProject
 {
     class Player : GameObject
     {
-        public Player(Texture2D texture)
-             : base(texture)
+        public Player(Scene scene, Texture2D texture)
+             : base(scene, texture)
         {
-
+            
         }
-        public void Update(GameTime gameTime, List<GameObject> sprites)
+		public override void Update()
         {
             Action();
-
-            foreach (var sprite in sprites)
+            /*
+            foreach (var sprite in )
             {
                 if (sprite == this)
                     continue;
@@ -32,8 +32,9 @@ namespace UniversityProject
                     (this.Velocity.Y < 0 & this.IsTouchingBottom(sprite)))
                     this.Velocity.Y = 0;
             }
+            */
 
-            Position += Velocity;
+            Position += Velocity * Time.deltaTime;
 
             Velocity = Vector2.Zero;
         }

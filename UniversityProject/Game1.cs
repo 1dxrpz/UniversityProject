@@ -69,8 +69,11 @@ namespace UniversityProject
 
             gameScene = new GameScene();
             gameScene.Initialize();
-            menu = new MenuScene();
-            menu.Initialize();
+            //menu = new MenuScene();
+            //menu.Initialize();
+
+            //Utilits.Scenes.Add(new MenuScene());
+            
             Utilits.Scenes.ForEach((v) => {
 				if (v.Scene == Utilits.CurrentScene)
 				{
@@ -80,57 +83,21 @@ namespace UniversityProject
                     });
 				}
             });
-            #region temp
-            /*
-            players = new List<Player>();
-            Rancher = new Player();
-            Atlas = new TileMap();
-            Atlas.Texture = Content.Load<Texture2D>("Gate");
-            FullScreen();
-            base.Initialize();
-            
-            //string[] map = File.ReadAllLines(@"C:\Users\IlyaNB\Desktop\Map.txt");
-            
-            //Atlas.AddTile('.', new Vector2(1, 18));
-            //Atlas.AddTile('!', new Vector2(1, 22));
-            //Atlas.AddTile('#', new Vector2(2, 16));
-            
-            
-            for (int a = 0; a < map.Length; a++)
-            {
-                for (int b = 0; b < map[a].Length; b++)
-                {
-                    Atlas.SetTiles((map[a][b]), new Vector2(b, a));
-                }
-            }
-            
-            for (int x = 0; x < 32; x++)
-            {
-                for (int y = 0; y < 32; y++)
-                {
-                    Atlas.AddTile((char)(y * 32 + x + 50), new Vector2(x, y));
-                    Atlas.SetTiles((char)(y * 32 + x + 50), new Vector2(x, y));
-                }
-            }
-            */
-            #endregion
+			foreach (var item in Utilits.Scenes)
+			{
+				Console.WriteLine(item.Scene.ToString());
+			}
             base.Initialize();
         }
-	
-		
-        protected override void LoadContent()
-        {
-            gameScene.LoadContent();
-            
-        }
-
-        bool start = true;
         protected override void Update(GameTime gameTime)
         {
             Utilits.GameTime = gameTime;
+            Time.Update();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            gameScene.Update();
+            //menu.Update();
             Utilits.Scenes.ForEach((v) => {
                 if (v.Scene == Utilits.CurrentScene)
                 {
@@ -147,9 +114,9 @@ namespace UniversityProject
             GraphicsDevice.Clear(Color.White);
             
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
+
             gameScene.Draw();
-            menu.Draw();
-            menu.Update();
+            //menu.Draw();
             Utilits.Scenes.ForEach((v) => {
                 if (v.Scene == Utilits.CurrentScene)
                 {
@@ -159,6 +126,7 @@ namespace UniversityProject
                     });
                 }
             });
+			
             spriteBatch.End();
 
             base.Draw(gameTime);

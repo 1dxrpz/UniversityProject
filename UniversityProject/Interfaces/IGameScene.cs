@@ -9,5 +9,6 @@ namespace UniversityProject.Interfaces
 		public void Initialize();
 		public void Update();
 		public void Draw();
+		public Scene Scene { get; }
 	}
 }

@@ -12,30 +12,21 @@ namespace UniversityProject.GUI
 	{
 		public Textarea(Scene scene, string text = "") : base(scene)
 		{
-			Scene = scene;
 			Texture = Utilits.GetTexture(Color.AliceBlue);
 			Text = text;
+			Bounds = new Rectangle(0, 0, 10, 10);
 		}
 		public Textarea(Scene scene, Rectangle bounds, string text = "") : base(scene, bounds, text)
 		{
-			Scene = scene;
-			Bounds = bounds;
 			Texture = Utilits.GetTexture(Color.AliceBlue);
-			Text = text;
 		}
 		public Textarea(Scene scene, Texture2D texture, string text = "") : base(scene, texture, text)
 		{
-			Scene = scene;
 			Bounds = new Rectangle(0, 0, 10, 10);
-			Texture = texture;
-			Text = text;
 		}
 		public Textarea(Scene scene, Texture2D texture, Rectangle bounds, string text = "") : base(scene, texture, bounds, text)
 		{
-			Scene = scene;
-			Bounds = bounds;
-			Texture = texture;
-			Text = text;
+
 		}
 
 		private bool input = false;

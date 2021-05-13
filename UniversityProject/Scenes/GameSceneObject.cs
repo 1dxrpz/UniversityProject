@@ -5,14 +5,30 @@ using UniversityProject.Interfaces;
 
 namespace UniversityProject.Scenes
 {
-	public class GameSceneObject
+	public class GameSceneObject : IGameScene
 	{
 		public List<IGameObjects> GameObjects = new List<IGameObjects>();
-		public Scene Scene;
 
+		public Scene Scene => Scene.Game;
 		public GameSceneObject()
 		{
-			Utilits.Scenes.Add(this);
+			
+		}
+
+
+		public void Draw()
+		{
+			
+		}
+
+		public void Initialize()
+		{
+			
+		}
+
+		public void Update()
+		{
+			
 		}
 	}
 }
