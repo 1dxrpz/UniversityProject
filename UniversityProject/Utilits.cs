@@ -18,7 +18,7 @@ namespace UniversityProject
 	}
     class Utilits
     {
-        public static List<GameScene> Scenes = new List<GameScene>();
+        public static List<GameSceneObject> Scenes = new List<GameSceneObject>();
         public static Scene CurrentScene = Scene.Menu;
         public static ContentManager Content;
         public static SpriteBatch SpriteBatch;
