@@ -8,86 +8,34 @@ using UniversityProject.Interfaces;
 
 namespace UniversityProject.GUI
 {
-	class Button : IGameObjects
+	class Button : GuiItem
 	{
-		Rectangle Bounds;
-		Texture2D Texture;
-		// 5 перегрузок, специально для тебя, ляпа ♥
-		public Button()
+		public Button(Scene scene, string text = "") : base(scene)
 		{
-			Bounds = new Rectangle(0, 0, 10, 10);
+			Scene = scene;
 			Texture = Utilits.GetTexture(Color.AliceBlue);
-			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Rectangle bounds)
+		public Button(Scene scene, Rectangle bounds, string text = "") : base(scene, bounds, text)
 		{
+			Scene = scene;
 			Bounds = bounds;
 			Texture = Utilits.GetTexture(Color.AliceBlue);
-			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Texture2D texture)
+		public Button(Scene scene, Texture2D texture, string text = "") : base(scene, texture, text)
 		{
+			Scene = scene;
 			Bounds = new Rectangle(0, 0, 10, 10);
 			Texture = texture;
-			Utilits.GameObjects.Add(this);
+			Text = text;
 		}
-		public Button(Texture2D texture, Rectangle bounds)
+		public Button(Scene scene, Texture2D texture, Rectangle bounds, string text = "") : base(scene, texture, bounds, text)
 		{
+			Scene = scene;
 			Bounds = bounds;
 			Texture = texture;
-			Utilits.GameObjects.Add(this);
-		}
-		public Button(Rectangle bounds, Texture2D texture)
-		{
-			Bounds = bounds;
-			Texture = texture;
-			Utilits.GameObjects.Add(this);
-		}
-		private bool temp = true;
-		public bool IsHover
-		{
-			get
-			{
-				return Mouse.GetState().X >= Bounds.X &&
-					Mouse.GetState().Y >= Bounds.Y &&
-					Mouse.GetState().X <= Bounds.X + Bounds.Width &&
-					Mouse.GetState().Y <= Bounds.Y + Bounds.Height;
-			}
-		}
-		public bool IsPressed
-		{
-			get
-			{
-				return IsHover && Mouse.GetState().LeftButton == ButtonState.Pressed;
-			}
-		}
-		public bool OnClick
-		{
-			get
-			{
-				if (IsPressed && temp)
-				{
-					temp = false;
-					return true;
-				}
-				if (Mouse.GetState().LeftButton == ButtonState.Released)
-				{
-					temp = true;
-				}
-				return false;
-			}
-		}
-		public void Initialize()
-		{
-
-		}
-		public void Update()
-		{
-			
-		}
-		public void Draw()
-		{
-			Utilits.SpriteBatch.Draw(Texture, Bounds, Color.White);
+			Text = text;
 		}
 	}
 }

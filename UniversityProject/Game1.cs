@@ -29,28 +29,59 @@ namespace UniversityProject
             IsMouseVisible = true;
         }
 
-        Player Rancher;
+        //Player Rancher;
         TileMap Atlas;
+        //List<Player> players;
 
-        List<Player> players;
 
-        Button button;
-        Button button2;
         GameScene gameScene;
         protected override void Initialize()
         {
             
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            Utilits.GraphicsDevice = this.GraphicsDevice;
-            Utilits.Content = this.Content;
-            Utilits.SpriteBatch = spriteBatch;
-            AllocConsole();
+        MenuScene menu;
+        private void FullScreen()
+        {
+            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            Window.Title = "Game Project";
+            graphics.ApplyChanges();
+        }
+        protected override void Initialize()
+        {
             FullScreen();
-            button = new Button(new Rectangle(100, 100, 100, 100));
-            button2 = new Button(new Rectangle(300, 100, 100, 100));
+            if (!File.Exists(@".\settings"))
+            {
+                File.WriteAllText(@".\settings", "");
+                Utilits.AddSetting("nickname", "dxrpz");
+                Utilits.AddSetting("defaultIp", "192.168.0.1");
+                Utilits.AddSetting("defaultPort", "8888");
+                Utilits.ApplySettings();
+            }
+			foreach (var item in File.ReadAllLines(@".\settings"))
+			{
+                Utilits.Settings.Add(item.Split(":")[0], item.Split(":")[1]);
+			}
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Utilits.GraphicsDevice = GraphicsDevice;
+            Utilits.Content = Content;
+            Utilits.SpriteBatch = spriteBatch;
+            Utilits.ScreenSize = new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            AllocConsole();
 
             gameScene = new GameScene();
             gameScene.Initialize();
+            menu = new MenuScene();
+            menu.Initialize();
+            Utilits.Scenes.ForEach((v) => {
+				if (v.Scene == Utilits.CurrentScene)
+				{
+                    v.GameObjects.ForEach((e) =>
+                    {
+                        e.Initialize();
+                    });
+				}
+            });
             #region temp
             /*
             players = new List<Player>();
@@ -87,14 +118,8 @@ namespace UniversityProject
             #endregion
             base.Initialize();
         }
-		private void FullScreen()
-        {
-            graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-            Window.Title = "2D Tyan";
-            graphics.ApplyChanges();
-        }
+	
+		
         protected override void LoadContent()
         {
             gameScene.LoadContent();
@@ -108,44 +133,34 @@ namespace UniversityProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (button.IsHover)
-			{
-                Console.WriteLine("lol");
-			}
-            if (button2.IsPressed)
-			{
-                Console.WriteLine("kek");
-			}
-            gameScene.Update();
-
-            
-			//if (start)
-			//{
-			//	//Connect("test1", "192.168.1.252", 8888);
-			//	start = false;
-			//}
-            //
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
-            //Camera.position = Vector2.Lerp(Camera.position, Rancher.position - new Vector2(1920, 1080) / 2, .2f);
-            //Rancher.Update();
+            Utilits.Scenes.ForEach((v) => {
+                if (v.Scene == Utilits.CurrentScene)
+                {
+                    v.GameObjects.ForEach((e) =>
+                    {
+                        e.Update();
+                    });
+                }
+            });
             base.Update(gameTime);
         }
-		async void Connect(string name, string ip, int port)
-		{
-			//await Task.Run(() => Client.Connect(name, ip, port));
-		}
-
         protected override void Draw(GameTime gameTime)
         {
-
-            GraphicsDevice.Clear(Color.Tomato);
-
+            GraphicsDevice.Clear(Color.White);
+            
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
-            Utilits.GameObjects.ForEach((v) => v.Draw());
             gameScene.Draw();
-            //Atlas.Draw();
-            //Rancher.Draw();
+            menu.Draw();
+            menu.Update();
+            Utilits.Scenes.ForEach((v) => {
+                if (v.Scene == Utilits.CurrentScene)
+                {
+                    v.GameObjects.ForEach((e) =>
+                    {
+                        e.Draw();
+                    });
+                }
+            });
             spriteBatch.End();
 
             base.Draw(gameTime);

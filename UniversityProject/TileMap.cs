@@ -52,7 +52,7 @@ namespace UniversityProject
                     if (tiles[x, y] != ' ')
                     {
                         Utilits.SpriteBatch.Draw(Texture,
-                            new Rectangle(Vector2.Multiply(new Vector2(x, y), Size).ToPoint() - Camera.position.ToPoint(), Size.ToPoint()),
+                            new Rectangle(Vector2.Multiply(new Vector2(x, y), Size).ToPoint(), Size.ToPoint()),
                             new Rectangle(Vector2.Multiply(tileDictionary[tiles[x, y]], TileSize).ToPoint(), TileSize.ToPoint()), Color.White); ;
                     }
                 }
