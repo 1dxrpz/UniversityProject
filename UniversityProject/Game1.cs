@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UniversityProject.GUI;
 using UniversityProject.server;
+using UniversityProject.Scenes;
 
 namespace UniversityProject
 {
@@ -15,6 +16,7 @@ namespace UniversityProject
     {
         [DllImport("kernel32")]
         static extern bool AllocConsole(); // для дебага
+        private List<GameObject> objects;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -31,6 +33,11 @@ namespace UniversityProject
         TileMap Atlas;
         //List<Player> players;
 
+
+        GameScene gameScene;
+        protected override void Initialize()
+        {
+            
         MenuScene menu;
         private void FullScreen()
         {
@@ -61,6 +68,9 @@ namespace UniversityProject
             Utilits.SpriteBatch = spriteBatch;
             Utilits.ScreenSize = new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             AllocConsole();
+
+            gameScene = new GameScene();
+            gameScene.Initialize();
             menu = new MenuScene();
             menu.Initialize();
             Utilits.Scenes.ForEach((v) => {
@@ -106,10 +116,13 @@ namespace UniversityProject
             }
             */
             #endregion
+            base.Initialize();
         }
+	
 		
         protected override void LoadContent()
         {
+            gameScene.LoadContent();
             
         }
 
@@ -117,14 +130,9 @@ namespace UniversityProject
         protected override void Update(GameTime gameTime)
         {
             Utilits.GameTime = gameTime;
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
-            //if (start)
-            //{
-            //	//Connect("test1", "192.168.1.252", 8888);
-            //	start = false;
-            //}
+                Exit();
+
             Utilits.Scenes.ForEach((v) => {
                 if (v.Scene == Utilits.CurrentScene)
                 {
@@ -141,6 +149,7 @@ namespace UniversityProject
             GraphicsDevice.Clear(Color.White);
             
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
+            gameScene.Draw();
             menu.Draw();
             menu.Update();
             Utilits.Scenes.ForEach((v) => {
