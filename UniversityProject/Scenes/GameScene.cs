@@ -10,9 +10,8 @@ using UniversityProject.server;
 
 namespace UniversityProject.Scenes
 {
-    class GameScene : IGameObjects
+    class GameScene : GameSceneObject, IGameScene
     {
-        private List<GameObject> objects;
 
         public GameScene()
         {
@@ -21,27 +20,27 @@ namespace UniversityProject.Scenes
 
         public void  Initialize() 
         {
-            objects = new List<GameObject>()
-            {
-                new Player(Utilits.Content.Load<Texture2D>("Tyan"))
-                {
-                    Input = new Input()
-                    {
-                        Up = Keys.W,
-                        Down = Keys.S,
-                        Right = Keys.D,
-                        Left = Keys.A,
-                        OpenInventory = Keys.Tab,
-                    },
-                    Position = new Vector2(100,100),
-                    Colour = Color.White,
-                    Speed = 8,
-                },
-                new MapObject(Utilits.Content.Load<Texture2D>("chest"))
-                {
-                    Position = new Vector2(50,50)
-                }
-            };
+            //objects = new List<GameObject>()
+            //{
+            //    new Player(Utilits.Content.Load<Texture2D>("Tyan"))
+            //    {
+            //        Input = new Input()
+            //        {
+            //            Up = Keys.W,
+            //            Down = Keys.S,
+            //            Right = Keys.D,
+            //            Left = Keys.A,
+            //            OpenInventory = Keys.Tab,
+            //        },
+            //        Position = new Vector2(100,100),
+            //        Colour = Color.White,
+            //        Speed = 8,
+            //    },
+            //    new MapObject(Utilits.Content.Load<Texture2D>("chest"))
+            //    {
+            //        Position = new Vector2(50,50)
+            //    }
+            //};
         }
 
         public void LoadContent()
@@ -51,20 +50,20 @@ namespace UniversityProject.Scenes
 
         public void Update()
         {
-            Camera.position = Vector2.Lerp(Camera.position, objects[0].Position - new Vector2(1920, 1080) / 2, .2f);
+            //Camera.position = Vector2.Lerp(Camera.position, objects[0].Position - new Vector2(1920, 1080) / 2, .2f);
 
-            foreach (var objec in objects)
-                objec.Update(Utilits.GameTime, objects);
+            //foreach (var objec in objects)
+            //    objec.Update(Utilits.GameTime, objects);
         }
 
         
 
         public void Draw()
         {
-            Utilits.GraphicsDevice.Clear(Color.Tomato);
+        //    Utilits.GraphicsDevice.Clear(Color.Tomato);
 
-            foreach (var objec in objects)
-                objec.Draw(Utilits.SpriteBatch);
+        //    foreach (var objec in objects)
+        //        objec.Draw(Utilits.SpriteBatch);
         }
     }
 }

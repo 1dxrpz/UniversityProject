@@ -15,7 +15,7 @@ namespace UniversityProject
         {
 
         }
-        public override void Update(GameTime gameTime, List<GameObject> sprites)
+        public void Update(GameTime gameTime, List<GameObject> sprites)
         {
             Action();
 
@@ -38,7 +38,7 @@ namespace UniversityProject
             Velocity = Vector2.Zero;
         }
 
-        public  void Draw()
+        public void Draw()
         {
             Utilits.SpriteBatch.Draw
                 (_texture,
