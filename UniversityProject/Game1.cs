@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UniversityProject.GUI;
 using UniversityProject.server;
+using UniversityProject.Scenes;
 
 namespace UniversityProject
 {
@@ -15,6 +16,7 @@ namespace UniversityProject
     {
         [DllImport("kernel32")]
         static extern bool AllocConsole(); // для дебага
+        private List<GameObject> objects;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -34,18 +36,23 @@ namespace UniversityProject
 
         Button button;
         Button button2;
-
+        GameScene gameScene;
         protected override void Initialize()
         {
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Utilits.GraphicsDevice = this.GraphicsDevice;
             Utilits.Content = this.Content;
             Utilits.SpriteBatch = spriteBatch;
             AllocConsole();
+            FullScreen();
             button = new Button(new Rectangle(100, 100, 100, 100));
             button2 = new Button(new Rectangle(300, 100, 100, 100));
-			#region temp
-			/*
+
+            gameScene = new GameScene();
+            gameScene.Initialize();
+            #region temp
+            /*
             players = new List<Player>();
             Rancher = new Player();
             Atlas = new TileMap();
@@ -77,8 +84,9 @@ namespace UniversityProject
                 }
             }
             */
-			#endregion
-		}
+            #endregion
+            base.Initialize();
+        }
 		private void FullScreen()
         {
             graphics.IsFullScreen = true;
@@ -89,6 +97,7 @@ namespace UniversityProject
         }
         protected override void LoadContent()
         {
+            gameScene.LoadContent();
             
         }
 
@@ -96,8 +105,10 @@ namespace UniversityProject
         protected override void Update(GameTime gameTime)
         {
             Utilits.GameTime = gameTime;
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
 
-			if (button.IsHover)
+            if (button.IsHover)
 			{
                 Console.WriteLine("lol");
 			}
@@ -105,9 +116,9 @@ namespace UniversityProject
 			{
                 Console.WriteLine("kek");
 			}
+            gameScene.Update();
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
+            
 			//if (start)
 			//{
 			//	//Connect("test1", "192.168.1.252", 8888);
@@ -127,10 +138,12 @@ namespace UniversityProject
 
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Tomato);
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
             Utilits.GameObjects.ForEach((v) => v.Draw());
+            gameScene.Draw();
             //Atlas.Draw();
             //Rancher.Draw();
             spriteBatch.End();
