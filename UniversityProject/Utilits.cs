@@ -5,13 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using UniversityProject.Interfaces;
+using UniversityProject.Scenes;
+using UniversityProject.server;
 
 namespace UniversityProject
 {
+    public enum Scene
+	{
+        Menu, Game
+	}
     class Utilits
     {
-        public static List<IGameObjects> GameObjects = new List<IGameObjects>();
+        public static List<GameScene> Scenes = new List<GameScene>();
+        public static Scene CurrentScene = Scene.Menu;
         public static ContentManager Content;
         public static SpriteBatch SpriteBatch;
         public static GameTime GameTime;
@@ -50,6 +58,10 @@ namespace UniversityProject
 			}
             temp.Remove(temp.Length - 1);
             File.WriteAllText(@".\settings", temp);
+        }
+        public static async void Connect(string name, string ip, int port)
+        {
+            await Task.Run(() => Client.Connect(name, ip, port));
         }
     }
 }

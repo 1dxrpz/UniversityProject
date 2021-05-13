@@ -29,7 +29,6 @@ namespace UniversityProject
 
         //Player Rancher;
         TileMap Atlas;
-
         //List<Player> players;
 
         Menu menu;
@@ -64,7 +63,15 @@ namespace UniversityProject
             AllocConsole();
             menu = new Menu();
             menu.Initialize();
-            Utilits.GameObjects.ForEach((v) => v.Initialize());
+            Utilits.Scenes.ForEach((v) => {
+				if (v.Scene == Utilits.CurrentScene)
+				{
+                    v.GameObjects.ForEach((e) =>
+                    {
+                        e.Initialize();
+                    });
+				}
+            });
             #region temp
             /*
             players = new List<Player>();
@@ -118,21 +125,33 @@ namespace UniversityProject
             //	//Connect("test1", "192.168.1.252", 8888);
             //	start = false;
             //}
-            Utilits.GameObjects.ForEach((v) => v.Update());
+            Utilits.Scenes.ForEach((v) => {
+                if (v.Scene == Utilits.CurrentScene)
+                {
+                    v.GameObjects.ForEach((e) =>
+                    {
+                        e.Update();
+                    });
+                }
+            });
             base.Update(gameTime);
         }
-		async void Connect(string name, string ip, int port)
-		{
-			//await Task.Run(() => Client.Connect(name, ip, port));
-		}
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-
+            
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
             menu.Draw();
             menu.Update();
-            Utilits.GameObjects.ForEach((v) => v.Draw());
+            Utilits.Scenes.ForEach((v) => {
+                if (v.Scene == Utilits.CurrentScene)
+                {
+                    v.GameObjects.ForEach((e) =>
+                    {
+                        e.Draw();
+                    });
+                }
+            });
             spriteBatch.End();
 
             base.Draw(gameTime);

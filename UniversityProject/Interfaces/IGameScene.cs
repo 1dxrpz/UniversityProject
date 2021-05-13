@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UniversityProject.Interfaces
 {
-	public interface IGameObjects
+	public interface IGameScene
 	{
 		public void Initialize();
 		public void Update();
