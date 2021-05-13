@@ -4,11 +4,12 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UniversityProject.Interfaces;
 using UniversityProject.Object;
 
 namespace UniversityProject
 {
-    class GameObject
+    class GameObject : IGameObjects
     {
         protected Texture2D _texture;
 
@@ -23,9 +24,9 @@ namespace UniversityProject
             get
             {
                 if (this is Player)
-                    return new Rectangle((int)Position.X, (int)Position.Y, 24*4, 24*4);
+                    return new Rectangle((int)Position.X, (int)Position.Y, 24 * 4, 24 * 4);
                 else if (this is GameObject)
-                    return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width*3, _texture.Height*4);
+                    return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width * 3, _texture.Height * 4);
                 return default;
             }
         }
@@ -35,34 +36,6 @@ namespace UniversityProject
             _texture = texture;
         }
 
-        public virtual void Update(GameTime gameTime, List<GameObject> sprites)
-        {
-
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            if (this is Player)
-            {
-                spriteBatch.Draw
-                (_texture,
-                new Rectangle
-                    (Position.ToPoint() - Camera.position.ToPoint(),
-                    new Point(96, 96)),
-                new Rectangle(0, 0, 24, 24),
-                Color.White);
-            }
-            else if (this is MapObject)
-            {
-                spriteBatch.Draw
-                 (_texture,
-                 new Rectangle
-                     (Position.ToPoint() - Camera.position.ToPoint(),
-                     new Point(64, 64)),
-                 new Rectangle(0, 0, 16, 16),
-                 Color.White);
-            }
-        }
 
         #region Colloision
         protected bool IsTouchingLeft(GameObject sprite)
@@ -97,8 +70,42 @@ namespace UniversityProject
               this.Rectangle.Left < sprite.Rectangle.Right;
         }
 
+
+
         #endregion
 
+        public void Initialize()
+        {
 
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public void Draw()
+        {
+            if (this is Player)
+            {
+                Utilits.SpriteBatch.Draw
+                (_texture,
+                new Rectangle
+                    (Position.ToPoint() - Camera.position.ToPoint(),
+                    new Point(96, 96)),
+                new Rectangle(0, 0, 24, 24),
+                Color.White);
+            }
+            else if (this is MapObject)
+            {
+                Utilits.SpriteBatch.Draw
+                 (_texture,
+                 new Rectangle
+                     (Position.ToPoint() - Camera.position.ToPoint(),
+                     new Point(64, 64)),
+                 new Rectangle(0, 0, 16, 16),
+                 Color.White);
+            }
+        }
     }
 }

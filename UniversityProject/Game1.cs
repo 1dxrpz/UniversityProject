@@ -35,10 +35,8 @@ namespace UniversityProject
 
 
         GameScene gameScene;
-        protected override void Initialize()
-        {
-            
         MenuScene menu;
+
         private void FullScreen()
         {
             graphics.IsFullScreen = true;
@@ -60,7 +58,7 @@ namespace UniversityProject
             }
 			foreach (var item in File.ReadAllLines(@".\settings"))
 			{
-                Utilits.Settings.Add(item.Split(":")[0], item.Split(":")[1]);
+                //Utilits.Settings.Add(item.Split(":")[0], item.Split(":")[1]);
 			}
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Utilits.GraphicsDevice = GraphicsDevice;
