@@ -9,14 +9,11 @@ namespace UniversityProject.Object
 {
     class MapObject : GameObject
     {
-        public MapObject(Texture2D texture)
-            : base(texture)
+        public MapObject(Scene scene, Texture2D texture)
+            : base(scene, texture)
         {
 
         }
 
-        public override void Update(GameTime gameTime, List<GameObject> sprites)
-        {
-        }
     }
 }

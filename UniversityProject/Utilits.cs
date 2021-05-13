@@ -16,10 +16,18 @@ namespace UniversityProject
 	{
         Menu, Game
 	}
+    class Time
+	{
+        public static float deltaTime = 0;
+        public static void Update()
+		{
+            deltaTime = (float)Utilits.GameTime.ElapsedGameTime.TotalSeconds;
+        }
+	}
     class Utilits
     {
         public static List<GameSceneObject> Scenes = new List<GameSceneObject>();
-        public static Scene CurrentScene = Scene.Menu;
+        public static Scene CurrentScene = Scene.Game;
         public static ContentManager Content;
         public static SpriteBatch SpriteBatch;
         public static GameTime GameTime;
@@ -63,5 +71,6 @@ namespace UniversityProject
         {
             await Task.Run(() => Client.Connect(name, ip, port));
         }
+
     }
 }

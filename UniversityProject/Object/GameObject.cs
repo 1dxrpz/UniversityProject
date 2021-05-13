@@ -9,15 +9,15 @@ using UniversityProject.Object;
 
 namespace UniversityProject
 {
-    class GameObject : IGameObjects
+    public class GameObject : IGameObjects
     {
-        protected Texture2D _texture;
+        public Scene Scene;
+        public Texture2D _texture;
 
-        public Vector2 Position;
+        public Vector2 Position { get; set; }
         public Vector2 Velocity;
-        public Color Colour = Color.White;
-        public float Speed;
-        public Input Input;
+        public float Speed { get; set; }
+        public Input Input { get; set; }
 
         public Rectangle Rectangle
         {
@@ -31,9 +31,11 @@ namespace UniversityProject
             }
         }
 
-        public GameObject(Texture2D texture)
+        public GameObject(Scene scene, Texture2D texture)
         {
+            scene = Scene.Game;
             _texture = texture;
+			Utilits.Scenes.Find((v) => v.Scene == scene).GameObjects.Add(this);
         }
 
 
@@ -79,7 +81,7 @@ namespace UniversityProject
 
         }
 
-        public void Update()
+        public virtual void Update()
         {
 
         }
