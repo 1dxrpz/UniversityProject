@@ -8,25 +8,24 @@ using UniversityProject.Object;
 
 namespace UniversityProject
 {
-    class Inventory
+    class Inventory : GameObject
     {
-        Texture2D texture;
-        Vector2 position;
 
-        public Inventory(Texture2D texture)
+        public Inventory(Scene scene,Texture2D texture)
+            : base (scene, texture)
         {
-            texture = this.texture;
+
         }
 
         public void Update()
         {
-
+            OpenInv = IsOpenInv();
         }
 
         public void Draw()
         {
 
         }
-
+        
     }
 }
