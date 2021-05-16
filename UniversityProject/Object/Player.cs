@@ -20,7 +20,6 @@ namespace UniversityProject
 		public override void Update()
         {
             Action();
-
             foreach (GameObject sprite in Utilits.Scenes.Find((v) => v.Scene == Scene.Game).GameObjects)
             {
 
@@ -36,27 +35,15 @@ namespace UniversityProject
                     this.Velocity.Y = 0;
             }
 
-
+            
             Position += Velocity ;
 
             Velocity = Vector2.Zero;
         }
 
-        public void Draw()
-        {
-            Utilits.SpriteBatch.Draw
-                (_texture,
-                new Rectangle
-                    (Position.ToPoint() - Camera.position.ToPoint(),
-                    new Point(96, 96)),
-                new Rectangle(0, 0, 24, 24),
-                Color.White);
-            //spriteBatch.Draw(_texture, Position - Camera.position, Colour);
-        }
-
         private void Action()
         {
-            if (Keyboard.GetState().IsKeyDown(Input.Left))
+                if (Keyboard.GetState().IsKeyDown(Input.Left))
                 Velocity.X = -Speed;
             else if (Keyboard.GetState().IsKeyDown(Input.Right))
                 Velocity.X = Speed;
@@ -67,6 +54,8 @@ namespace UniversityProject
                 Velocity.Y = Speed;
 
             Velocity *= Time.deltaTime;
+
         }
+
     }
 }

@@ -15,22 +15,23 @@ namespace UniversityProject
 
         public Scene Scene;
         public Texture2D _texture;
-        public int Colis { get; set; }
 
         public Vector2 Position { get; set; }
         public Vector2 Velocity;
         public float Speed { get; set; }
         public Input Input { get; set; }
+        public bool OpenInv;
 
         public Rectangle Rectangle
         {
             get
             {
                 if (this is Player)
-                    return new Rectangle((int)Position.X, (int)Position.Y, 150, 150 );
+                    return new Rectangle((int)Position.X, (int)Position.Y, 150, 150);
                 else if (this is GameObject)
-                    return new Rectangle((int)Position.X, (int)Position.Y, 150 , 150);
-                return default;
+                    return new Rectangle((int)Position.X, (int)Position.Y, 150, 150);
+                else { return default; }
+                
             }
         }
 
@@ -78,15 +79,20 @@ namespace UniversityProject
 
 
         #endregion
+        public bool IsOpenInv()
+        {
+            if (Keyboard.GetState().IsKeyDown(Input.OpenInventory))
+                return true;
+            return false;
+        }
 
         public void Initialize()
         {
-
+            
         }
 
         public virtual void Update()
         {
-
         }
 
         Vector2 iPos;
@@ -110,6 +116,18 @@ namespace UniversityProject
                      (Position.ToPoint() - Camera.position.ToPoint(),
                      new Point(150, 150)),
                  Color.Red);
+            }
+            else if (this is Inventory)
+            {
+                if (OpenInv == true)
+                {
+                    Utilits.SpriteBatch.Draw
+                     (_texture,
+                     new Rectangle
+                         (Position.ToPoint(),
+                         new Point(500, 348)),
+                     Color.White);
+                }
             }
         }
     }

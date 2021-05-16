@@ -176,8 +176,8 @@ namespace UniversityProject
 		
 		public void Draw()
 		{
-			//Utilits.SpriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), new Rectangle(0, 0, swidth, sheight), Color.White);
-			//Utilits.SpriteBatch.Draw(logo, new Rectangle(20, sheight / 2 - 180, 53 * 4, 80), Color.White);
+			Utilits.SpriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), new Rectangle(0, 0, swidth, sheight), Color.White);
+			Utilits.SpriteBatch.Draw(logo, new Rectangle(20, sheight / 2 - 180, 53 * 4, 80), Color.White);
 		}
 	}
 }
