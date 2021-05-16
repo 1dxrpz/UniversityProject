@@ -6,13 +6,16 @@ using System.Collections.Generic;
 using System.Text;
 using UniversityProject.Interfaces;
 using UniversityProject.Object;
+using UniversityProject.Scenes;
 
 namespace UniversityProject
 {
     public class GameObject : IGameObjects
     {
+
         public Scene Scene;
         public Texture2D _texture;
+        public int Colis { get; set; }
 
         public Vector2 Position { get; set; }
         public Vector2 Velocity;
@@ -24,9 +27,9 @@ namespace UniversityProject
             get
             {
                 if (this is Player)
-                    return new Rectangle((int)Position.X, (int)Position.Y, 24 * 4, 24 * 4);
+                    return new Rectangle((int)Position.X, (int)Position.Y, 150, 150 );
                 else if (this is GameObject)
-                    return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width * 3, _texture.Height * 4);
+                    return new Rectangle((int)Position.X, (int)Position.Y, 150 , 150);
                 return default;
             }
         }
@@ -86,16 +89,17 @@ namespace UniversityProject
 
         }
 
+        Vector2 iPos;
         public void Draw()
         {
+            iPos = Position - Camera.position;
             if (this is Player)
             {
                 Utilits.SpriteBatch.Draw
                 (_texture,
                 new Rectangle
-                    (Position.ToPoint() - Camera.position.ToPoint(),
-                    new Point(96, 96)),
-                new Rectangle(0, 0, 24, 24),
+                    (iPos.ToPoint(),
+                    new Point(150, 150)),
                 Color.White);
             }
             else if (this is MapObject)
@@ -104,9 +108,8 @@ namespace UniversityProject
                  (_texture,
                  new Rectangle
                      (Position.ToPoint() - Camera.position.ToPoint(),
-                     new Point(64, 64)),
-                 new Rectangle(0, 0, 16, 16),
-                 Color.White);
+                     new Point(150, 150)),
+                 Color.Red);
             }
         }
     }

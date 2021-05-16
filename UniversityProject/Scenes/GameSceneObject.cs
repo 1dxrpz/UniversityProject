@@ -5,7 +5,7 @@ using UniversityProject.Interfaces;
 
 namespace UniversityProject.Scenes
 {
-	public class GameSceneObject : IGameScene
+	public class GameSceneObject :  IGameScene
 	{
 		public List<IGameObjects> GameObjects = new List<IGameObjects>();
 
