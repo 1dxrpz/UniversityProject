@@ -16,7 +16,6 @@ namespace UniversityProject
     {
         [DllImport("kernel32")]
         static extern bool AllocConsole(); // для дебага
-        private List<GameObject> objects;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -29,9 +28,6 @@ namespace UniversityProject
             IsMouseVisible = true;
         }
 
-        //Player Rancher;
-        TileMap Atlas;
-        //List<Player> players;
 
 
         GameScene gameScene;

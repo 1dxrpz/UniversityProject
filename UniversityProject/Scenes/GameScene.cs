@@ -21,7 +21,7 @@ namespace UniversityProject.Scenes
         Player player;
 		public void  Initialize() 
         {
-            player = new Player(Scene.Game, Utilits.Content.Load<Texture2D>("Tyan"))
+            player = new Player(Scene.Game, Utilits.Content.Load<Texture2D>("test"))
             {
                 Input = new Input()
                 {
@@ -31,14 +31,15 @@ namespace UniversityProject.Scenes
                     Left = Keys.A,
                     OpenInventory = Keys.Tab,
                 },
-                Position = new Vector2(100, 100),
+                Position = new Vector2(50, 50),
                 Speed = 100,
+                Colis = 1,
             };
             GameObjects.Add(player);
             GameObjects.Add(
-                new MapObject(Scene.Game, Utilits.Content.Load<Texture2D>("chest"))
+                new MapObject(Scene.Game, Utilits.Content.Load<Texture2D>("test"))
                 {
-                    Position = new Vector2(50, 50)
+                    Position = new Vector2(200, 200)
                 }
             );
         }
@@ -50,7 +51,7 @@ namespace UniversityProject.Scenes
 
         public void Update()
         {
-            Camera.position = Vector2.Lerp(Camera.position, player.Position - new Vector2(1920, 1080) / 2, .2f);
+            Camera.position = Vector2.Lerp(Camera.position, player.Position - new Vector2(1920, 1080) / 2, .1f);
 
             foreach (var objec in this.GameObjects)
                 objec.Update();
