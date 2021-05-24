@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using UniversityProject.Object;
 using UniversityProject.Interfaces;
 using UniversityProject.server;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
+using MonoGame.Extended.Graphics;
+
 
 namespace UniversityProject.Scenes
 {
@@ -19,7 +23,10 @@ namespace UniversityProject.Scenes
             Utilits.Scenes.Add(this);
         }
         Player GG;
-		public void  Initialize() 
+
+        TiledMap tileMap;
+        TiledMapRenderer mapRender;
+        public void  Initialize() 
         {
             GG = new Player(Scene.Game, Utilits.Content.Load<Texture2D>("test"))
             {
@@ -31,7 +38,7 @@ namespace UniversityProject.Scenes
                     Left = Keys.A,
                     OpenInventory = Keys.Tab,
                 },
-                Position = new Vector2(50, 50),
+                Position = new Vector2(50, 300),
                 Speed = 100,
             };
             GameObjects.Add(GG);
@@ -45,9 +52,14 @@ namespace UniversityProject.Scenes
                 new Inventory(Scene.Game, Utilits.Content.Load<Texture2D>("066"))
                 {
                     Position = new Vector2(480 * 2 + 400, 230 * 2 + 200),
-                    OpenInv = false,
+                    Input = new Input()
+                    {
+                        OpenInventory = Keys.Tab
+                    }
                 }
                 );
+            tileMap = Utilits.Content.Load<TiledMap>("Mapa");
+            mapRender = new TiledMapRenderer (Utilits.GraphicsDevice, tileMap);
         }
 
 
@@ -58,8 +70,9 @@ namespace UniversityProject.Scenes
 
         public void Update()
         {
+
+            mapRender.Update(Utilits.GameTime);
             Camera.position = Vector2.Lerp(Camera.position, GG.Position - new Vector2(1920, 1080) / 2, .1f);
-            
             foreach (var objec in this.GameObjects)
                 objec.Update();
         }
@@ -69,7 +82,7 @@ namespace UniversityProject.Scenes
         public void Draw()
         {
             Utilits.GraphicsDevice.Clear(Color.Tomato);
-
+            mapRender.Draw(Matrix.CreateScale(2));
             foreach (var objec in this.GameObjects)
                 objec.Draw();
         }

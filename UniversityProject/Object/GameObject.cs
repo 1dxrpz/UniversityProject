@@ -8,6 +8,7 @@ using UniversityProject.Interfaces;
 using UniversityProject.Object;
 using UniversityProject.Scenes;
 
+
 namespace UniversityProject
 {
     public class GameObject : IGameObjects
@@ -20,7 +21,6 @@ namespace UniversityProject
         public Vector2 Velocity;
         public float Speed { get; set; }
         public Input Input { get; set; }
-        public bool OpenInv;
 
         public Rectangle Rectangle
         {
@@ -28,6 +28,8 @@ namespace UniversityProject
             {
                 if (this is Player)
                     return new Rectangle((int)Position.X, (int)Position.Y, 150, 150);
+                else if (this is Inventory)
+                    return new Rectangle((int)Position.X, (int)Position.Y, 0,0);
                 else if (this is GameObject)
                     return new Rectangle((int)Position.X, (int)Position.Y, 150, 150);
                 else { return default; }
@@ -79,20 +81,14 @@ namespace UniversityProject
 
 
         #endregion
-        public bool IsOpenInv()
-        {
-            if (Keyboard.GetState().IsKeyDown(Input.OpenInventory))
-                return true;
-            return false;
-        }
 
         public void Initialize()
         {
-            
         }
 
         public virtual void Update()
         {
+            
         }
 
         Vector2 iPos;
@@ -101,12 +97,14 @@ namespace UniversityProject
             iPos = Position - Camera.position;
             if (this is Player)
             {
+
                 Utilits.SpriteBatch.Draw
                 (_texture,
                 new Rectangle
                     (iPos.ToPoint(),
                     new Point(150, 150)),
                 Color.White);
+                
             }
             else if (this is MapObject)
             {
@@ -116,18 +114,6 @@ namespace UniversityProject
                      (Position.ToPoint() - Camera.position.ToPoint(),
                      new Point(150, 150)),
                  Color.Red);
-            }
-            else if (this is Inventory)
-            {
-                if (OpenInv == true)
-                {
-                    Utilits.SpriteBatch.Draw
-                     (_texture,
-                     new Rectangle
-                         (Position.ToPoint(),
-                         new Point(500, 348)),
-                     Color.White);
-                }
             }
         }
     }
