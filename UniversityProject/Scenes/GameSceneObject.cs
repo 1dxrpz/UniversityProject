@@ -5,17 +5,15 @@ using UniversityProject.Interfaces;
 
 namespace UniversityProject.Scenes
 {
-	public class GameSceneObject : IGameScene
+	public class GameSceneObject
 	{
 		public List<IGameObjects> GameObjects = new List<IGameObjects>();
+		public Scene Scene;
 
-		public Scene Scene => Scene.Game;
 		public GameSceneObject()
 		{
 			
 		}
-
-
 		public void Draw()
 		{
 			

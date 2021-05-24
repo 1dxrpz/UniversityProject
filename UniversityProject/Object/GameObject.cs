@@ -33,9 +33,8 @@ namespace UniversityProject
 
         public GameObject(Scene scene, Texture2D texture)
         {
-            scene = Scene.Game;
             _texture = texture;
-			Utilits.Scenes.Find((v) => v.Scene == scene).GameObjects.Add(this);
+			//Utilits.Scenes.Find((v) => v.Scene == scene).GameObjects.Add(this);
         }
 
 

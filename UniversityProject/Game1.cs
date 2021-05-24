@@ -67,13 +67,19 @@ namespace UniversityProject
             Utilits.ScreenSize = new Point(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             AllocConsole();
 
-            gameScene = new GameScene();
-            gameScene.Initialize();
-            //menu = new MenuScene();
-            //menu.Initialize();
+            gameScene = new GameScene(Scene.Game);
+            menu = new MenuScene();
+            Utilits.Scenes.Add(menu);
+            Utilits.Scenes.Add(gameScene);
 
-            //Utilits.Scenes.Add(new MenuScene());
-            
+			//Console.WriteLine(Utilits.Scenes[1].Scene.ToString());
+
+            gameScene.Initialize();
+            menu.Initialize();
+
+            Utilits.Scenes[0].Scene = Scene.Menu;
+            Utilits.Scenes[1].Scene = Scene.Game;
+
             Utilits.Scenes.ForEach((v) => {
 				if (v.Scene == Utilits.CurrentScene)
 				{
@@ -96,8 +102,15 @@ namespace UniversityProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            gameScene.Update();
-            //menu.Update();
+            if (Utilits.CurrentScene == Scene.Menu)
+            {
+                menu.Update();
+            }
+            if (Utilits.CurrentScene == Scene.Game)
+            {
+                gameScene.Update();
+            }
+            
             Utilits.Scenes.ForEach((v) => {
                 if (v.Scene == Utilits.CurrentScene)
                 {
@@ -115,8 +128,17 @@ namespace UniversityProject
             
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
 
-            gameScene.Draw();
-            //menu.Draw();
+            if (Utilits.CurrentScene == Scene.Menu)
+            {
+                menu.Draw();
+            }
+            if (Utilits.CurrentScene == Scene.Game)
+            {
+                Console.WriteLine(1);
+                gameScene.Draw();
+            }
+
+            
             Utilits.Scenes.ForEach((v) => {
                 if (v.Scene == Utilits.CurrentScene)
                 {

@@ -12,14 +12,20 @@ namespace UniversityProject.Scenes
 {
     class GameScene : GameSceneObject, IGameScene
     {
-		public Scene Scene => Scene.Game;
-
-        public GameScene()
+		public new Scene Scene
 		{
-            Utilits.Scenes.Add(this);
+			get
+			{
+                return Scene.Game;
+            }
+		}
+
+        public GameScene(Scene s)
+		{
+            //Scene = s;
         }
         Player player;
-		public void  Initialize() 
+		public void Initialize() 
         {
             player = new Player(Scene.Game, Utilits.Content.Load<Texture2D>("Tyan"))
             {

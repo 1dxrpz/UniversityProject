@@ -14,7 +14,7 @@ namespace UniversityProject
 {
     public enum Scene
 	{
-        Menu, Game
+        Menu, Game, Null
 	}
     class Time
 	{
@@ -27,7 +27,7 @@ namespace UniversityProject
     class Utilits
     {
         public static List<GameSceneObject> Scenes = new List<GameSceneObject>();
-        public static Scene CurrentScene = Scene.Game;
+        public static Scene CurrentScene = Scene.Menu;
         public static ContentManager Content;
         public static SpriteBatch SpriteBatch;
         public static GameTime GameTime;
