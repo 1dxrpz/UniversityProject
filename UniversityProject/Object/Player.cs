@@ -35,15 +35,14 @@ namespace UniversityProject
                     this.Velocity.Y = 0;
             }
 
-            
+
             Position += Velocity ;
 
             Velocity = Vector2.Zero;
         }
-
         private void Action()
         {
-                if (Keyboard.GetState().IsKeyDown(Input.Left))
+            if (Keyboard.GetState().IsKeyDown(Input.Left))
                 Velocity.X = -Speed;
             else if (Keyboard.GetState().IsKeyDown(Input.Right))
                 Velocity.X = Speed;
@@ -52,10 +51,12 @@ namespace UniversityProject
                 Velocity.Y = -Speed;
             else if (Keyboard.GetState().IsKeyDown(Input.Down))
                 Velocity.Y = Speed;
-
+           
             Velocity *= Time.deltaTime;
 
         }
+        
+
 
     }
 }
