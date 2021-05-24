@@ -10,10 +10,11 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
-#begin atlas.png
+#begin ../../../../../Desktop/TheRancher Sprites/atlas.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,7 +24,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:atlas.png
+/build:../../../../../Desktop/TheRancher Sprites/atlas.png;atlas.png
+
+#begin 066.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:066.png
 
 #begin chest.png
 /importer:TextureImporter
@@ -67,6 +80,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mani-idle-run.png;Tyan.png
+
+#begin Mapa.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Mapa.tmx
 
 #begin Menu/background.png
 /importer:TextureImporter
@@ -127,4 +145,21 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Menu/textarea.png
+
+#begin test.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:test.jpg
+
+#begin tl.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:tl.tsx;tile.tsx
 

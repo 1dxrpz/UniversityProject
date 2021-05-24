@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UniversityProject.Object;
+using UniversityProject.Scenes;
 
 namespace UniversityProject
 {
@@ -15,12 +16,13 @@ namespace UniversityProject
         {
             
         }
+
 		public override void Update()
         {
             Action();
-            /*
-            foreach (var sprite in )
+            foreach (GameObject sprite in Utilits.Scenes.Find((v) => v.Scene == Scene.Game).GameObjects)
             {
+
                 if (sprite == this)
                     continue;
 
@@ -32,25 +34,12 @@ namespace UniversityProject
                     (this.Velocity.Y < 0 & this.IsTouchingBottom(sprite)))
                     this.Velocity.Y = 0;
             }
-            */
 
-            Position += Velocity * Time.deltaTime;
+
+            Position += Velocity ;
 
             Velocity = Vector2.Zero;
         }
-
-        public void Draw()
-        {
-            Utilits.SpriteBatch.Draw
-                (_texture,
-                new Rectangle
-                    (Position.ToPoint() - Camera.position.ToPoint(),
-                    new Point(96, 96)),
-                new Rectangle(0, 0, 24, 24),
-                Color.White);
-            //spriteBatch.Draw(_texture, Position - Camera.position, Colour);
-        }
-
         private void Action()
         {
             if (Keyboard.GetState().IsKeyDown(Input.Left))
@@ -62,12 +51,12 @@ namespace UniversityProject
                 Velocity.Y = -Speed;
             else if (Keyboard.GetState().IsKeyDown(Input.Down))
                 Velocity.Y = Speed;
-
-            if (Keyboard.GetState().IsKeyDown(Input.OpenInventory))
-            {
-
-            }
+           
+            Velocity *= Time.deltaTime;
 
         }
+        
+
+
     }
 }
