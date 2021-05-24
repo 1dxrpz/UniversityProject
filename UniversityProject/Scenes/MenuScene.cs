@@ -33,13 +33,20 @@ namespace UniversityProject
 		List<Button> Buttons;
 		List<Textarea> Textareas;
 
-		public Scene Scene => Scene.Menu;
+		public new Scene Scene
+		{
+			get
+			{
+				return Scene.Menu;
+			}
+		}
 		public MenuScene()
 		{
-			Utilits.Scenes.Add(this);
+			
 		}
 		public void Initialize()
 		{
+
 			Buttons = new List<Button>();
 			Textareas = new List<Textarea>();
 			background = Utilits.Content.Load<Texture2D>(@"Menu\background");
@@ -164,6 +171,10 @@ namespace UniversityProject
 				} catch
 				{
 					Console.WriteLine("connection error");
+				}
+				finally
+				{
+					//Utilits.CurrentScene = Scene.Game;
 				}
 			}
 			if (exit_button.OnClick)

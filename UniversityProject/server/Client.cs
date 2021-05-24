@@ -35,7 +35,7 @@ namespace UniversityProject.server
             }
             finally
             {
-                Disconnect();
+                //Disconnect();
             }
         }
         // отправка сообщений
