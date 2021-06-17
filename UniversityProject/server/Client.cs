@@ -8,28 +8,26 @@ namespace UniversityProject.server
     class Client
     {
         static string userName;
-        private const string host = "192.168.1.252";
-        private const int port = 8888;
         static TcpClient client;
         static NetworkStream stream;
 
-        public static void Connect()
+        public static void Connect(string name, string ip, int port)
         {
-            userName = "test";
+            userName = name;
             client = new TcpClient();
             try
             {
-                client.Connect(host, port); //подключение клиента
+                client.Connect(ip, port); //подключение клиента
                 stream = client.GetStream(); // получаем поток
 
                 string message = userName;
-                byte[] data = Encoding.Unicode.GetBytes(message);
-                stream.Write(data, 0, data.Length);
-                
+                //byte[] data = Encoding.Unicode.GetBytes(message);
+                //stream.Write(data, 0, data.Length);
+
                 // запускаем новый поток для получения данных
-                //Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
-                //receiveThread.Start(); //старт потокаd
-                //SendMessage();
+                Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
+                receiveThread.Start(); //старт потокаd
+                SendMessage(userName);
             }
             catch (Exception ex)
             {
@@ -37,30 +35,23 @@ namespace UniversityProject.server
             }
             finally
             {
-                Disconnect();
+                //Disconnect();
             }
         }
         // отправка сообщений
-        static void SendMessage()
+        static void SendMessage(string mes)
         {
-            string message = "";
+            string message = mes;
             byte[] data = Encoding.Unicode.GetBytes(message);
             stream.Write(data, 0, data.Length);
         }
-        static void SendToServer(string message, string id)
-        {
-            byte[] data = Encoding.Unicode.GetBytes(message);
-            stream.Write(data, 0, data.Length);
-        }
-        // получение сообщений
-        /*
         static void ReceiveMessage()
         {
             while (true)
             {
                 try
                 {
-                    byte[] data = new byte[64]; // буфер для получаемых данных
+                    byte[] data = new byte[64];
                     StringBuilder builder = new StringBuilder();
                     int bytes = 0;
                     do
@@ -71,17 +62,16 @@ namespace UniversityProject.server
                     while (stream.DataAvailable);
 
                     string message = builder.ToString();
-                    Console.WriteLine(message);//вывод сообщения
+                    Console.WriteLine(message);
                 }
                 catch
                 {
                     Console.WriteLine("Подключение прервано!"); //соединение было прервано
-                    Console.ReadLine();
                     Disconnect();
+                    Environment.Exit(0);
                 }
             }
         }
-        */
 
         static void Disconnect()
         {
